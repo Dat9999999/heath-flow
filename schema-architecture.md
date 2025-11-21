@@ -16,3 +16,13 @@ This application have 3-tier:
      Data Tier – The databases: MySQL for structured data and MongoDB for flexible, document-based data
   </li>
 </ul>
+
+
+Flow of data controll: 
+1 User interacts with Interface layer (dashboard/ API consumer)
+2 All request will be handled by controller
+3 Bussiness logic will be applied at service layer 
+4 Repositories abstract the database access logic and expose a simple, declarative interface for fetching and persisting data.
+5 Each repository interfaces directly with the underlying database engine
+6 Once data is retrieved from the database, it is mapped into Java model classes that the application can work with. This process is known as model binding.
+7 Finally, the bound models are used in the response layer
