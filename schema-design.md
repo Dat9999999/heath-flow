@@ -1,30 +1,31 @@
 ## MySQL Database Design
 
 
-### Table: user_credentials
-- id: INT, Primary Key, Auto Increment
-- username: VARCHAR(20), UNIQUE
-- password: VARCHAR(20)
-- user_type:ENUM('doctor','patient', 'admin')
-
 ### Table: admin
-- id: INT, Primary Key, Auto Increment
-- userId INT, Foreign Key -> user_credentials(id)
+- id INT, Primary Key, Auto Increment
+- username VARCHAR(30)
+- password VARCHAR(30)
 
 ### Table: doctors
 - id: INT, Primary Key, Auto Increment
-- userId INT, Foreign Key -> user_credentials(id)
-- specitlity VARCHAR(20) 
-- license_number INT, UNQIUE
-- contact_number VARCHAR(20) NOT NULL
+- speciality VARCHAR(20)
+- password VARCHAR(30)
+- phone VARCHAR(10)
+- email VARCHAR(20)
+- name VARCHAR(20)
+
+### Table: doctor_availabletimes 
+- availabletime Date 
+- doctorId INT, Foreign Key -> doctors(id)
+- id: INT, Primary Key, Auto Increment
 
 ### Table: patients
 - id: INT, Primary Key, Auto Increment
-- userId INT, Foreign Key -> user_credentials(id)
-- insurance_policy_number VARCHAR(20), UNIQUE
 - address VARCHAR(30)
-- date_of_birth DATETIME, Not Null
-- contact_number VARCHAR(20) Not Null
+- phone VARCHAR(10)
+- email VARCHAR(20) UNIQUE
+- name VARCHAR(20)
+- password VARCHAR(30)
 
 ### Table: appointments
 - id: INT, Primary Key, Auto Increment
@@ -50,19 +51,5 @@
     "name": "Walgreens SF",
     "location": "Market Street"
   }
-}
-```
-
-### Collection: feedbacks
-```json
-{
-  "_id": "ObjectId('64cba789012')", // Unique ID for the feedback document
-  "patientId": 1001,             // Foreign Key link to the patients collection
-  "appointmentId": 51,           // Foreign Key link to the specific appointment
-  "doctorId": 205,               // The doctor being reviewed
-  "overallRating": 5,            // (e.g., 1-5 scale)
-  "comments": "The doctor was extremely thorough and listened to my concerns. The wait time was slightly longer than expected.",
-  "is_anonymous": false,
-  "submissionDate": "2025-11-21T10:00:00Z"
 }
 ```
