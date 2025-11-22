@@ -10,10 +10,7 @@
 ### Table: admin
 - id: INT, Primary Key, Auto Increment
 - userId INT, Foreign Key -> user_credentials(id)
-- job_roles('receiptionist', 'IT support')
-- first_name: VARCHAR(20)
-- last_name: VARCHAR(20)
-- email_contact: VARCHAR(40)
+
 ### Table: doctors
 - id: INT, Primary Key, Auto Increment
 - userId INT, Foreign Key -> user_credentials(id)
