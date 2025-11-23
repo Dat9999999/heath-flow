@@ -1,4 +1,3 @@
-use prescriptions;
 db.prescriptions.insertMany([
     {
         "_id": ObjectId("6807dd712725f013281e7201"),
