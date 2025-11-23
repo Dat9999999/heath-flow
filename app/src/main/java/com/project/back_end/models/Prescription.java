@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 // @Document annotation:
 //    - Marks the class as a MongoDB document (a collection in MongoDB).
 //    - The collection name is specified as "prescriptions" to map this class to the "prescriptions" collection in MongoDB.
-@Document
+@Document(collection = "prescriptions")
 public class Prescription {
 
 

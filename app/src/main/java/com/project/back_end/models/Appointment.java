@@ -51,7 +51,7 @@ public class Appointment {
 //      - Represents the date and time when the appointment is scheduled to occur.
 //      - The @Future annotation ensures that the appointment time is always in the future when the appointment is created.
 //      - It uses LocalDateTime, which includes both the date and time for the appointment.
-    @Future
+    @Future(message = "Appointment time must be in the future")
     @NotNull
     private LocalDateTime appointmentTime;
 // 5. 'status' field:
@@ -70,6 +70,7 @@ public class Appointment {
 //      - This method is a transient field (not persisted in the database).
 //      - It calculates the end time of the appointment by adding one hour to the start time (appointmentTime).
 //      - It is used to get an estimated appointment end time for display purposes.
+    @Transient
     private LocalDateTime getEndTime(){
         return appointmentTime.plusHours(1);
     }
