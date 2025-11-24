@@ -1,4 +1,4 @@
-/*
+    /*
   Step-by-Step Explanation of Header Section Rendering
 
   This code dynamically renders the header section of the page based on the user's role, session status, and available actions (such as login, logout, or role-switching).
@@ -122,4 +122,159 @@
 
   16. **Render the Header**: Finally, the `renderHeader()` function is called to initialize the header rendering process when the page loads.
 */
-   
+
+    / Global function exposed to the window, usually called from the <body> onload event
+    window.renderHeader = function() {
+        // 2. Select the Header Div
+        const headerDiv = document.getElementById("header");
+
+        if (!headerDiv) {
+            console.error("Header injection point (#header) not found.");
+            return;
+        }
+
+        // 3. Check if the Current Page is the Root Page (Simulating initial unauthenticated state)
+        // If we are at the root, we clear any previous role and render a minimal header with login options.
+        if (window.location.pathname.endsWith("/") || window.location.pathname.endsWith("/index.html")) {
+            localStorage.removeItem("userRole");
+            localStorage.removeItem("token");
+
+            // Minimal header for the root/landing page
+            headerDiv.innerHTML = `
+            <header class="header">
+                <div class="logo-section">
+                    <img src="../assets/images/logo/logo.png" alt="Hospital CMS Logo" class="logo-img">
+                    <span class="logo-title">Hospital CMS</span>
+                </div>
+                <nav>
+                    <button id="doctorLogin" class="adminBtn">Doctor Login</button>
+                    <button id="adminLogin" class="adminBtn">Admin Login</button>
+                    <button id="patientSignup" class="adminBtn">Sign Up</button>
+                </nav>
+            </header>`;
+
+            // 11. Attach Event Listeners
+            attachHeaderButtonListeners();
+            return;
+        }
+
+        // 4. Retrieve the User's Role and Token from LocalStorage
+        const role = localStorage.getItem("userRole");
+        const token = localStorage.getItem("token");
+
+        // 5. Initialize Header Content with base structure
+        let headerContent = `<header class="header">
+        <div class="logo-section">
+            <img src="../assets/images/logo/logo.png" alt="Hospital CMS Logo" class="logo-img">
+            <span class="logo-title">Hospital CMS</span>
+        </div>
+        <nav>`;
+
+        // 6. Handle Session Expiry or Invalid Login for protected routes
+        if ((role === "loggedPatient" || role === "admin" || role === "doctor") && !token) {
+            localStorage.removeItem("userRole");
+            localStorage.removeItem("token");
+
+            // Use a custom message box instead of the forbidden alert()
+            window.showMessageBox("Session Expired", "Session expired or invalid login. Please log in again.", () => {
+                window.location.href = "/"; // Redirect after user acknowledges
+            });
+
+            // Prevent rendering the rest of the header until redirect
+            return;
+        }
+
+        // 7. Add Role-Specific Header Content
+        if (role === "admin") {
+            headerContent += `
+            <button id="addDocBtn" class="adminBtn" onclick="openModal('addDoctor')">Add Doctor</button>
+            <a href="#" onclick="logout()">Logout</a>`;
+        } else if (role === "doctor") {
+            // Doctor Home button links to the Thymeleaf page defined in the structure
+            headerContent += `
+            <button class="adminBtn"  onclick="window.location.href='/app/doctorDashboard.html'">Home</button>
+            <a href="#" onclick="logout()">Logout</a>`;
+        } else if (role === "patient") {
+            // Unlogged Patient access on the Patient Dashboard
+            headerContent += `
+            <button id="patientLogin" class="adminBtn">Login</button>
+            <button id="patientSignup" class="adminBtn">Sign Up</button>`;
+        } else if (role === "loggedPatient") {
+            headerContent += `
+            <button id="home" class="adminBtn" onclick="window.location.href='/pages/loggedPatientDashboard.html'">Home</button>
+            <button id="patientAppointments" class="adminBtn" onclick="window.location.href='/pages/patientAppointments.html'">Appointments</button>
+            <a href="#" onclick="logoutPatient()">Logout</a>`;
+        } else {
+            // Fallback for non-recognized role on a protected page, redirect to root
+            window.location.href = "/";
+            return;
+        }
+
+        // 9. Close the Header Section
+        headerContent += `</nav></header>`;
+
+        // 10. Render the Header Content
+        headerDiv.innerHTML = headerContent;
+
+        // 11. Attach Event Listeners to Header Buttons
+        attachHeaderButtonListeners();
+    };
+
+
+    // 13. Helper Function: attachHeaderButtonListeners
+    // Attaches event listeners to dynamically created buttons (especially login/signup buttons)
+    window.attachHeaderButtonListeners = function() {
+        const doctorLoginBtn = document.getElementById("doctorLogin");
+        const adminLoginBtn = document.getElementById("adminLogin");
+        const patientLoginBtn = document.getElementById("patientLogin");
+        const patientSignupBtn = document.getElementById("patientSignup");
+
+        // Open Doctor Login Modal
+        if (doctorLoginBtn) {
+            doctorLoginBtn.addEventListener('click', () => {
+                // Assume openModal is a global function defined in modals.js
+                window.openModal('doctorLogin');
+            });
+        }
+
+        // Open Admin Login Modal
+        if (adminLoginBtn) {
+            adminLoginBtn.addEventListener('click', () => {
+                window.openModal('adminLogin');
+            });
+        }
+
+        // Open Patient Login Modal
+        if (patientLoginBtn) {
+            patientLoginBtn.addEventListener('click', () => {
+                window.openModal('patientLogin');
+            });
+        }
+
+        // Open Patient Signup Modal
+        if (patientSignupBtn) {
+            patientSignupBtn.addEventListener('click', () => {
+                window.openModal('patientSignup');
+            });
+        }
+    };
+
+    // 14. Helper Function: logout (For Admin/Doctor)
+    window.logout = function() {
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("token");
+        // Redirect to the root page
+        window.location.href = "/";
+    };
+
+    // 15. Helper Function: logoutPatient (For Logged Patient)
+    window.logoutPatient = function() {
+        localStorage.removeItem("userRole"); // Clear role state
+        localStorage.removeItem("token");    // Clear patient token
+        // Redirect to the general patient dashboard to allow re-login/signup
+        window.location.href = "/pages/patientDashboard.html";
+    };
+
+
+    // 16. Render the Header: This is called by renderContent() in util.js
+    // renderHeader();

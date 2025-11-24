@@ -1,6 +1,6 @@
 /* this is the style sheet file for index.htlm  */
 
-/* 
+/*
 **Global Reset (`*`)**
 
 * Remove all default margin and padding.
@@ -43,7 +43,7 @@
 * Remove borders and round the corners (`12px`).
 * Use `10px 20px` padding and set width to `200px`.
 * Add a top margin of `10px` for spacing.
-* Enable pointer cursor and readable font size (`16px`).
+* Enable pointer cursor and readable font size (`16px`).0
 * On hover, change background color to bold red (`#A62B1F`).
 
 **Dashboard Buttons (`.dashboard-btn`)**
@@ -51,3 +51,101 @@
 * Use the same base green background (`#015c5d`) as the default button.
 * On hover, darken the background to deep teal (`#003e3e`) for visual feedback.
  */
+/* ** Global Reset and Base Styles (As Requested) ** */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* * Base (`html, body`): Set full height and font family.
+*/
+html, body {
+    height: 100%;
+    /* Use Roboto as the primary body font */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* * Layout Wrapper (`.wrapper`): Full-screen vertical flexbox.
+*/
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f4; /* Light background for contrast */
+}
+
+/* * Heading (`h2`): Large, bold, dark teal.
+*/
+h2 {
+    font-size: 48px;
+    margin-bottom: 50px;
+    color: #003e3e; /* Dark teal */
+    font-weight: 700; /* Bold */
+    /* Blended font stack for elegant styling */
+    font-family: 'Alegreya', 'Roboto', sans-serif;
+}
+
+/* * Main Section (`.main-content`): Full-screen background and centered content.
+*/
+.main-content {
+    flex-grow: 1; /* Allow to fill available space */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    text-align: center;
+
+    /* Full-screen background image settings */
+    background-image: url('https://placehold.co/1920x1080/003e3e/ffffff?text=ELEGANT+BACKGROUND');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Keeps image still during scroll */
+    color: white; /* Ensure text is visible on the dark background */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* * Buttons (`button`): Primary styling.
+*/
+button {
+    background-color: #015c5d; /* Teal green */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    width: 200px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+}
+
+/* * Button Hover: Change background to bold red.
+*/
+button:hover {
+    background-color: #A62B1F; /* Bold red */
+}
+
+/* * Dashboard Buttons (`.dashboard-btn`): Special hover state.
+*/
+.dashboard-btn:hover {
+    background-color: #003e3e; /* Deep teal */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 640px) {
+    h2 {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+    .main-content {
+        padding: 20px;
+    }
+    button {
+        width: 100%; /* Full width on mobile */
+    }
+}

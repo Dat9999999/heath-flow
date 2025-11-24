@@ -102,3 +102,65 @@
   Call the renderFooter function to populate the footer in the page
 
 */
+function renderFooter() {
+    // Access the Footer Container
+    const footerDiv = document.getElementById("footer");
+
+    if (!footerDiv) {
+        console.error("Footer injection point (#footer) not found.");
+        return;
+    }
+
+    // Inject HTML Content
+    footerDiv.innerHTML = `
+        <footer class="footer">
+            <div class="footer-content-wrapper">
+
+                <!-- Branding Section -->
+                <div class="footer-logo">
+                    <img src="../assets/images/logo/logo.png" alt="Hospital CMS Logo" class="logo-img">
+                    <h4>Hospital CMS</h4>
+                    <p class="copyright-text">
+                        &copy; Copyright ${new Date().getFullYear()}. All rights reserved.
+                    </p>
+                </div>
+
+                <!-- Link Sections (3 Columns) -->
+                
+                <!-- Company Column -->
+                <div class="footer-column">
+                    <h5>Company</h5>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Press</a>
+                    <a href="#">Our Team</a>
+                </div>
+
+                <!-- Support Column -->
+                <div class="footer-column">
+                    <h5>Support</h5>
+                    <a href="#">My Account</a>
+                    <a href="#">Help Center</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">FAQs</a>
+                </div>
+
+                <!-- Legals Column -->
+                <div class="footer-column">
+                    <h5>Legal</h5>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Licensing</a>
+                    <a href="#">Cookies Settings</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Built for better patient and doctor management.</p>
+            </div>
+        </footer>
+    `;
+}
+
+// Call the function to render the footer when the script loads
+renderFooter();

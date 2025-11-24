@@ -63,3 +63,254 @@
 
 Let me know if you'd like a consolidated style guide for the entire HospitalCRM frontend.
  */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f7f9fc; /* Light background for the overall page */
+    min-height: 100vh;
+}
+
+/* 2. Layout (Wrapper and Main Content) */
+.wrapper {
+    /* Vertical flex container to stack header, main-content, and footer */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1; /* Allows content area to fill vertical space */
+    width: 95%; /* Flexible width for responsiveness */
+    max-width: 1400px;
+    margin: 30px auto; /* Center content horizontally with vertical margin */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Soft shadow for a card effect */
+}
+
+.main-content h2 {
+    color: #015c5d; /* Brand color for main title */
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+/* 3. Search and Filter Styling */
+.searchBar {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.searchBar:focus {
+    border-color: #015c5d;
+    outline: none;
+}
+
+.filter-section {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.filter-section label {
+    font-weight: bold;
+    color: #555;
+}
+
+.filter-section input[type="date"] {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+/* Base style for buttons (inheriting from style.css 'button primaryBtn' if applicable) */
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s;
+    font-size: 1rem;
+}
+
+/* Today's Appointments Button specific style (Brand Color) */
+#todayButton {
+    background-color: #015c5d;
+    color: white;
+}
+
+/* Button Hover State */
+#todayButton:hover {
+    background-color: #017d7e; /* Light shift for hover */
+    transform: translateY(-1px);
+}
+
+/* 4. Table Styling (Patient Records) */
+.data-table {
+    width: 100%;
+    border-collapse: collapse; /* Removes double borders */
+    table-layout: fixed; /* Helps with responsive column widths */
+}
+
+.data-table th, .data-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+/* Table Header */
+.data-table thead {
+    background-color: rgba(1, 92, 93, 0.9); /* Dark semi-transparent background */
+    color: white;
+}
+
+.data-table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Table Body */
+.data-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+/* Alternating Row Colors */
+.data-table tbody tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+/* Highlight on Hover */
+.data-table tbody tr:hover {
+    background-color: #e6f7f7; /* Light cyan highlight */
+}
+
+/* 5. Extras */
+/* Prescription Button Styling */
+.prescription-btn {
+    background-color: #2ECC71; /* Green for action/add */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: transform 0.2s, filter 0.2s;
+    font-weight: normal;
+    font-size: 0.9rem;
+    width: auto; /* Override base button width */
+    margin-top: 0; /* Override base button margin */
+}
+
+.prescription-btn:hover {
+    /* Add scale/brightness hover effect */
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Style for no patient record message */
+.noPatientRecord {
+    font-style: italic;
+    color: #888;
+    text-align: center;
+    padding: 20px;
+    grid-column: 1 / -1; /* Span across all columns in a grid/flex context if needed */
+}
+
+/* 6. Responsive Design */
+
+/* Adjusting layout for tablets and small desktops */
+@media (max-width: 1024px) {
+    .main-content {
+        width: 98%;
+        padding: 15px;
+    }
+
+    .data-table th, .data-table td {
+        padding: 12px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile-friendly layout */
+@media (max-width: 768px) {
+    html, body {
+        font-size: 15px;
+    }
+
+    .main-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .filter-section {
+        flex-direction: column; /* Stack filters vertically */
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    #todayButton, .filter-section input[type="date"] {
+        width: 100%; /* Full width for better tapping */
+        max-width: none;
+    }
+
+    /* Responsive Table Solution: Forced stack for small screens */
+    .data-table thead {
+        display: none; /* Hide header on mobile */
+    }
+
+    .data-table, .data-table tbody, .data-table tr, .data-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .data-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .data-table td {
+        /* Treat table data as separate blocks */
+        text-align: right;
+        padding-left: 50%; /* Make space for the 'label' */
+        position: relative;
+    }
+
+    .data-table td::before {
+        /* Create pseudo-elements to act as column headers/labels */
+        content: attr(data-label); /* Requires data-label attribute in HTML */
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #015c5d;
+    }
+
+    /* Adjust button width for smaller screens */
+    .prescription-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -107,3 +107,49 @@ with search, filter, and modal functionality.
 
  -->
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/assets/css/adminDashboard.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <script th:src="@{/js/render.js}" defer></script>
+    <script th:src="@{/js/util.js}" defer></script>
+    <script th:src="@{/js/components/header.js}" defer></script>
+    <script th:src="@{/js/components/footer.js}" defer></script>
+</head>
+<style>
+</style>
+<body>
+<main>
+    <div class = "container">
+        <div class = "wrapper">
+            <div class = "header">
+
+            </div>
+            <main class = "main-content">
+                <input type="text" id="searchBar" placeholder="search by doctor name" />
+                <select>
+                    <option>Sorting by time</option>
+                    <option>Filtering by specialty</option>
+
+                </select>
+                <div id="content"></div>
+            </main>
+            <div class = "footer">
+
+            </div>
+
+        </div>
+    </div>
+</main>
+<div id="modal" class="modal">
+    <span id="closeModal" class="close">&times;</span>
+    <div id="modal-body"></div>
+</div>
+<script type="module" src="../js/services/adminDashboard.js" defer></script>
+<script type="module" src="../js/components/doctorCard.js" defer></script>
+</body>
+</html>

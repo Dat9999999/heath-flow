@@ -92,3 +92,79 @@ Admin Button (`.adminBtn`)
 
 
 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; font-family: Arial, sans-serif; }
+
+
+.wrapper {
+    /* 1. Vertical Flex Layout (makes children stack top-to-bottom) */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the wrapper takes up the full viewport height */
+
+    /* 2. Background Image Settings */
+    background-size: cover;      /* Scale the image to cover the entire container */
+    background-position: center; /* Center the image in the container */
+    background-repeat: no-repeat;/* Prevent the image from tiling */
+
+    /* Optional: Alignment/Spacing for the whole page */
+    /* Use gap to space out the main elements within the wrapper if needed */
+    /* gap: 20px; */
+}
+.main-content {
+    /* 3. Proper Alignment and Padding for Clean Layout */
+
+    /* Max Width & Centering: Sets a reasonable width and centers the block horizontally */
+    max-width: 1200px; /* Example max width, adjust as needed */
+    width: 100%;       /* Ensures it's responsive */
+    margin-left: auto;
+    margin-right: auto;
+
+    /* Padding: Adds breathing room inside the content area */
+    padding: 20px; /* Uniform padding on all sides */
+
+    /* Optional: Flex alignment to push content to the top/center/bottom */
+    /* flex-grow: 1; */ /* Allows content to take up available space in the vertical flex wrapper */
+}
+
+button {
+    /* Base Properties */
+    background-color: #A62B1F; /* Sets a bold red color */
+    color: white; /* Makes text stand out */
+    border: none; /* Removes any outline/border */
+    border-radius: 12px; /* Creates rounded corners */
+    padding: 10px 20px; /* Gives space inside the button */
+    margin-top: 20px; /* Adds spacing above the button */
+    width: 200px; /* Ensures consistent button width */
+    cursor: pointer; /* Shows a hand icon on hover */
+    font-size: 16px; /* Makes the text readable */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* On Hover: Retains the same red background to maintain branding. */
+button:hover {
+    background-color: #A62B1F;
+}
+
+.adminBtn {
+    /* Base Properties */
+    background-color: #f4f4f4; /* Uses a light grey background */
+    color: #333; /* Uses dark text for contrast */
+    font-weight: bold; /* Emphasizes text */
+    width: 110px; /* Smaller, compact width */
+    padding: 10px 0; /* Vertical padding only */
+    border: none; /* Clean look */
+    cursor: pointer; /* Indicates it's clickable */
+    transition: color 0.3s ease; /* Smooth transition for hover effects */
+
+    /* Override any conflicting button properties for clean look */
+    border-radius: 6px; /* A slightly less rounded corner for a distinct look */
+    margin-top: 0;
+    font-size: 14px; /* Slightly smaller text for secondary action */
+}
+
+/* On Hover: Changes text color to the brand red while keeping the background same. */
+.adminBtn:hover {
+    color: #A62B1F; /* Brand red text color */
+    background-color: #f4f4f4; /* Background remains light grey */
+}
