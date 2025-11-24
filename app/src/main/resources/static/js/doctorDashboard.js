@@ -52,3 +52,140 @@
     - Call renderContent() (assumes it sets up the UI layout)
     - Call loadAppointments() to display today's appointments by default
 */
+// Import Required Modules
+// Note: Assuming 'getAllAppointments' is meant to be the function that retrieves doctor-specific appointments.
+import { getAllAppointments } from './services/appointmentRecordService.js';
+import { createPatientRow } from './components/patientRows';
+import { getCurrentDateString } from './util'; // Assuming a utility to get YYYY-MM-DD format
+
+// --- Global Variables ---
+const tableBody = document.getElementById("patientTableBody");
+const searchBar = document.getElementById("searchBar");
+const todayButton = document.getElementById("todayButton");
+const datePicker = document.getElementById("datePicker");
+
+// State variables
+let selectedDate = getCurrentDateString(); // Initialize to today's date (YYYY-MM-DD)
+let token = localStorage.getItem('token');
+let patientName = null;
+let doctorId = localStorage.getItem('userId'); // Assuming doctorId is stored upon successful login
+
+/**
+ * Utility function to display a single row message (e.g., loading, no records, error).
+ * @param {string} message - The message to display.
+ */
+function displayMessageRow(message) {
+    if (!tableBody) return;
+    tableBody.innerHTML = `
+        <tr>
+            <td colspan="5" class="noPatientRecord">${message}</td>
+        </tr>
+    `;
+}
+
+/**
+ * Fetches appointments based on the current date, search, and token, then renders the table.
+ */
+async function loadAppointments() {
+    if (!token || !doctorId) {
+        displayMessageRow("Authentication required. Please log in.");
+        return;
+    }
+
+    // 1. Show loading state
+    displayMessageRow("Loading appointments...");
+
+    try {
+        // 2. Fetch data from service
+        // The service layer must handle constructing the correct endpoint using doctorId.
+        const appointments = await getAllAppointments(selectedDate, patientName, token, doctorId);
+
+        // 3. Clear table content
+        if (tableBody) tableBody.innerHTML = "";
+
+        // 4. Handle No Appointments
+        if (!appointments || appointments.length === 0) {
+            displayMessageRow(`No appointments found for ${selectedDate}${patientName ? ' matching the search query.' : '.'}`);
+            return;
+        }
+
+        // 5. Render rows
+        appointments.forEach(appointment => {
+            // Assuming appointment object includes patient details
+            const row = createPatientRow(appointment);
+            if (tableBody) tableBody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error("Error loading appointments:", error);
+        displayMessageRow("An error occurred while fetching appointments. Please try again.");
+    }
+}
+
+
+// --- Event Handlers ---
+
+/**
+ * Handles input change on the patient search bar.
+ */
+function handleSearchChange(event) {
+    // Update patientName. Use null if the input is empty to avoid searching for empty string.
+    const searchValue = event.target.value.trim();
+    patientName = searchValue === '' ? null : searchValue;
+
+    loadAppointments(); // Refresh the list
+}
+
+/**
+ * Resets the date filter to today's date and refreshes appointments.
+ */
+function handleTodayButtonClick() {
+    selectedDate = getCurrentDateString();
+
+    // Update the date picker input to reflect the change
+    if (datePicker) {
+        datePicker.value = selectedDate;
+    }
+
+    loadAppointments(); // Refresh the list
+}
+
+/**
+ * Handles change on the date picker input.
+ */
+function handleDatePickerChange(event) {
+    selectedDate = event.target.value;
+    loadAppointments(); // Refresh the list
+}
+
+
+// --- Initialization ---
+
+window.addEventListener('DOMContentLoaded', () => {
+    // Set the initial value of the date picker to today's date
+    if (datePicker) {
+        datePicker.value = selectedDate;
+    }
+
+    // 1. Bind Search Bar
+    if (searchBar) {
+        searchBar.addEventListener("input", handleSearchChange);
+    }
+
+    // 2. Bind Filter Controls
+    if (todayButton) {
+        todayButton.addEventListener("click", handleTodayButtonClick);
+    }
+    if (datePicker) {
+        datePicker.addEventListener("change", handleDatePickerChange);
+    }
+
+    // 3. Initial Render
+    // Check if the content rendering utility exists and call it first
+    if (window.renderContent) {
+        window.renderContent();
+    }
+
+    // Load default appointments (today's)
+    loadAppointments();
+});
