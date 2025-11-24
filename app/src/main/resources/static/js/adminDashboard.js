@@ -71,9 +71,9 @@
     If saving fails, show an error message
 */
 // Import Required Modules
-import { openModal, closeModal } from '../components/modals.js';
+import { openModal, closeModal } from './components/modals.js';
 import { getDoctors, filterDoctors, saveDoctor, deleteDoctor } from './services/doctorServices.js';
-import { createDoctorCard } from '../components/doctorCard.js'; // Adjusting path to match common structure
+import { createDoctorCard } from './components/doctorCard.js'; // Adjusting path to match common structure
 
 // Global DOM references
 const contentDiv = document.getElementById("content");

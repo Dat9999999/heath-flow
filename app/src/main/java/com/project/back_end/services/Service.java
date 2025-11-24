@@ -1,9 +1,9 @@
 package com.project.back_end.services;
-
-public class Service {
 // 1. **@Service Annotation**
 // The @Service annotation marks this class as a service component in Spring. This allows Spring to automatically detect it through component scanning
 // and manage its lifecycle, enabling it to be injected into controllers or other services using @Autowired or constructor injection.
+@org.springframework.stereotype.Service
+public class Service {
 
 // 2. **Constructor Injection for Dependencies**
 // The constructor injects all required dependencies (TokenService, Repositories, and other Services). This approach promotes loose coupling, improves testability,

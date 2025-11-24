@@ -56,7 +56,7 @@
 // Note: Assuming 'getAllAppointments' is meant to be the function that retrieves doctor-specific appointments.
 import { getAllAppointments } from './services/appointmentRecordService.js';
 import { createPatientRow } from './components/patientRows';
-import { getCurrentDateString } from './util'; // Assuming a utility to get YYYY-MM-DD format
+import { getCurrentDateString } from './util.js'; // Assuming a utility to get YYYY-MM-DD format
 
 // --- Global Variables ---
 const tableBody = document.getElementById("patientTableBody");
