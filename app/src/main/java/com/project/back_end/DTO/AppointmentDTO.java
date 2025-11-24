@@ -1,25 +1,117 @@
 package com.project.back_end.DTO;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 public class AppointmentDTO {
 // 1. 'id' field:
 //    - Type: private Long
 //    - Description:
 //      - Represents the unique identifier for the appointment.
 //      - This is the primary key for identifying the appointment in the system.
-
+    private Long id;
 // 2. 'doctorId' field:
 //    - Type: private Long
 //    - Description:
 //      - Represents the ID of the doctor associated with the appointment.
 //      - This is a simplified field, capturing only the ID of the doctor (not the full Doctor object).
-
+    private Long doctorId;
 // 3. 'doctorName' field:
 //    - Type: private String
 //    - Description:
 //      - Represents the name of the doctor associated with the appointment.
 //      - This is a simplified field for displaying the doctor's name.
+// Doctor's Information
+private String doctorName;
 
-// 4. 'patientId' field:
+    // Patient's Information
+    private Long patientId;
+    private String patientName;
+    private String patientEmail;
+    private String patientPhone;
+    private String patientAddress;
+
+    // Appointment Details
+    private LocalDateTime appointmentTime;
+    private int status;
+
+    // Derived Fields (Calculated/Extracted from appointmentTime)
+    private LocalDate appointmentDate;
+    private LocalTime appointmentTimeOnly;
+    private LocalDateTime endTime;
+
+    public AppointmentDTO(Long id, Long doctorId, String doctorName,
+                          Long patientId, String patientName, String patientEmail,
+                          String patientPhone, String patientAddress,
+                          LocalDateTime appointmentTime, int status) {
+        this.id = id;
+        this.doctorId = doctorId;
+        this.doctorName = doctorName;
+        this.patientId = patientId;
+        this.patientName = patientName;
+        this.patientEmail = patientEmail;
+        this.patientPhone = patientPhone;
+        this.patientAddress = patientAddress;
+        this.appointmentTime = appointmentTime;
+        this.status = status;
+        this.appointmentDate = appointmentTime.toLocalDate();
+        this.appointmentTimeOnly = appointmentTime.toLocalTime();
+        this.endTime = appointmentTime.plusHours(1);
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public LocalTime getAppointmentTimeOnly() {
+        return appointmentTimeOnly;
+    }
+
+    public LocalDate getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public LocalDateTime getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public String getPatientAddress() {
+        return patientAddress;
+    }
+
+    public String getPatientPhone() {
+        return patientPhone;
+    }
+
+    public String getPatientEmail() {
+        return patientEmail;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+    // 4. 'patientId' field:
 //    - Type: private Long
 //    - Description:
 //      - Represents the ID of the patient associated with the appointment.
