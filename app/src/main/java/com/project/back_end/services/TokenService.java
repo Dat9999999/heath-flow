@@ -1,20 +1,34 @@
 package com.project.back_end.services;
 
-public class TokenService {
+import com.project.back_end.repo.AdminRepository;
+import com.project.back_end.repo.DoctorRepository;
+import com.project.back_end.repo.PatientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 // 1. **@Component Annotation**
 // The @Component annotation marks this class as a Spring component, meaning Spring will manage it as a bean within its application context.
 // This allows the class to be injected into other Spring-managed components (like services or controllers) where it's needed.
+@Component
+public class TokenService {
 
 // 2. **Constructor Injection for Dependencies**
 // The constructor injects dependencies for `AdminRepository`, `DoctorRepository`, and `PatientRepository`,
 // allowing the service to interact with the database and validate users based on their role (admin, doctor, or patient).
 // Constructor injection ensures that the class is initialized with all required dependencies, promoting immutability and making the class testable.
 
+    @Autowired
+    private final AdminRepository adminRepository;
+    public TokenService(AdminRepository adminRepository, DoctorRepository doctorRepository, PatientRepository patientRepository) {
+        this.adminRepository = adminRepository;
+    }
 // 3. **getSigningKey Method**
 // This method retrieves the HMAC SHA key used to sign JWT tokens.
 // It uses the `jwt.secret` value, which is provided from an external source (like application properties).
 // The `Keys.hmacShaKeyFor()` method converts the secret key string into a valid `SecretKey` for signing and verification of JWTs.
+    public void getSigningKey(String token){
 
+    }
 // 4. **generateToken Method**
 // This method generates a JWT token for a user based on their email.
 // - The `subject` of the token is set to the user's email, which is used as an identifier.
@@ -38,6 +52,8 @@ public class TokenService {
 // - If the role or user does not exist, it returns false, indicating the token is invalid.
 // - The method gracefully handles any errors by returning false if the token is invalid or an exception occurs.
 // This ensures secure access control based on the user's role and their existence in the system.
-
+    public boolean validateToken(String token, String role){
+        return true;
+    }
 
 }
