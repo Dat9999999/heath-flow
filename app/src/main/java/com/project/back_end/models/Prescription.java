@@ -35,7 +35,7 @@ public class Prescription {
 //      - Represents the ID of the associated appointment where the prescription was given.
 //      - The @NotNull annotation ensures that the appointment ID is required for the prescription.
     @NotNull
-    private Long patientId;
+    private Long appointmentId;
 // 4. 'medication' field:
 //    - Type: private String
 //    - Description:
@@ -68,18 +68,26 @@ public class Prescription {
     public Prescription() {
     }
 
-    public Prescription(String patientName, Long patientId, String medication, String dosage, String doctorNotes) {
+    public Prescription(String id, String patientName, Long appointmentId, String medication, String dosage, String doctorNotes) {
+        this.id = id;
         this.patientName = patientName;
-        this.patientId = patientId;
+        this.appointmentId = appointmentId;
         this.medication = medication;
         this.dosage = dosage;
         this.doctorNotes = doctorNotes;
     }
-
 // 8. Getters and Setters:
 //    - Standard getter and setter methods are provided for all fields: id, patientName, medication, dosage, doctorNotes, and appointmentId.
 //    - These methods allow access and modification of the fields of the Prescription class.
 
+
+    public Long getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(Long appointmentId) {
+        this.appointmentId = appointmentId;
+    }
 
     public String getId() {
         return id;
@@ -97,13 +105,7 @@ public class Prescription {
         this.patientName = patientName;
     }
 
-    public Long getPatientId() {
-        return patientId;
-    }
 
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
-    }
 
     public String getMedication() {
         return medication;
