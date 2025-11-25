@@ -1,5 +1,6 @@
 package com.project.back_end.services;
 
+import com.project.back_end.models.Appointment;
 import org.springframework.beans.factory.annotation.Autowired;
 
 // 1. **@Service Annotation**
@@ -50,7 +51,9 @@ public class Service {
 // - If no matching time slot is found, it returns 0 (invalid).
 // - If the doctor doesn’t exist, it returns -1.
 // This logic prevents overlapping or invalid appointment bookings.
-
+    public boolean validateAppointment(Appointment appointment){
+        return true;
+    }
 // 7. **validatePatient Method**
 // This method checks whether a patient with the same email or phone number already exists in the system.
 // - If a match is found, it returns false (indicating the patient is not valid for new registration).

@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 // 1. Extend JpaRepository:
@@ -68,7 +69,7 @@ public interface AppointmentRepository  extends JpaRepository<Appointment,Long> 
     - The @Modifying annotation is used to indicate that the method performs a modification operation (like DELETE or UPDATE).
     - The @Transactional annotation ensures that the modification is done within a transaction, meaning that if any exception occurs, the changes will be rolled back.
 */
-    List<Appointment> findByDoctorIdAndAppointmentTimeBetween(Long doctorId, Date start, Date end);
+    List<Appointment> findByDoctorIdAndAppointmentTimeBetween(Long doctorId, LocalDateTime start, LocalDateTime end);
 
     List<Appointment> findByDoctorIdAndPatient_NameContainingIgnoreCaseAndAppointmentTimeBetween(Long doctorId, String patientName, Date start, Date end);
     @Modifying
